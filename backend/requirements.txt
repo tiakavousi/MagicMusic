@@ -1,0 +1,11 @@
+Flask
+Flask-RESTful
+Flask-SQLAlchemy
+PyMySQL
+flask-cors
+flask_testing
+cryptography
+Flask-Migrate
+
+
+
