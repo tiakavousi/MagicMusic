@@ -9,16 +9,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
 class Music(db.Model):
     __tablename__ = 'musics'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     singer = db.Column(db.String(80), nullable=False)
 
+
 @app.route('/musics', methods=['GET'])
 def get_musics():
     musics = Music.query.all()
-    return jsonify([{'id': r.id, 'name': r.name, 'singer': r.singer} for r in musics])
+    return jsonify(
+            [{'id': r.id, 'name': r.name, 'singer': r.singer} for r in musics]
+        )
+
 
 @app.route('/musics', methods=['POST'])
 def add_music():
@@ -27,6 +32,7 @@ def add_music():
     db.session.add(new_music)
     db.session.commit()
     return jsonify({'id': new_music.id, 'name': new_music.name, 'singer': new_music.singer}), 201
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
