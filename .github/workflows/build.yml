@@ -18,7 +18,7 @@ jobs:
         with:
           # https://github.com/afshin-deriv/MagicMusic/settings/secrets/actions
           # Create new secret DOCKER_USERNAME & DOCKER_PASSWORD 
-          # Filled by Docker hub user/pass
+          # Filled by Docker hub user/pass https://hub.docker.com/
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build BE
