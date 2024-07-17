@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build: Dockerfile.be
     ports:
       - "5000:5000"
     environment:
@@ -19,7 +19,7 @@ services:
       - db
 
   frontend:
-    build: ./frontend
+    build: Dockerfile.fe
     ports:
       - "3000:3000"
   frontend-tests:

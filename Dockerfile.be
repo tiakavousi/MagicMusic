@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Install the dependencies from requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt 
+RUN pip install --no-cache-dir -r /backend/requirements.txt 
 
 # Install pytest for testing
 RUN pip install pytest
