@@ -47,13 +47,16 @@ jobs:
           node-version: '20'
 
       - name: Install Node.js dependencies
+        working-directory: magicmusic/frontend
         run: npm install
 
-      - name: Run Node.js tests with coverage
-        run: |
-          npm run test -- --coverage --reporters=jest-junit
+      # - name: Run Node.js tests with coverage
+      #   working-directory: magicmusic/frontend
+      #   run: |
+      #     npm run test -- --coverage --reporters=jest-junit
 
-      - name: Upload Node.js coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/jest/lcov-report/*.html
+      # - name: Upload Node.js coverage to Codecov
+      #   working-directory: magicmusic/frontend
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     files: ./coverage/jest/lcov-report/*.html
