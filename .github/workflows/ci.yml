@@ -45,6 +45,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+      
+      - name: Debug - Print working directory
+        run: pwd
+
+      - name: Debug - List root directory contents
+        run: ls -la
+
+      - name: Debug - List magicmusic directory contents
+        run: ls -la magicmusic
+
+      - name: Debug - List magicmusic/frontend directory contents
+        run: ls -la magicmusic/frontend
 
       - name: Install Node.js dependencies
         working-directory: magicmusic/frontend
