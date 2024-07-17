@@ -52,14 +52,11 @@ jobs:
       - name: Debug - List root directory contents
         run: ls -la
 
-      - name: Debug - List magicmusic directory contents
-        run: ls -la magicmusic
-
-      - name: Debug - List magicmusic/frontend directory contents
-        run: ls -la magicmusic/frontend
+      - name: Debug - List frontend directory contents
+        run: ls -la frontend
 
       - name: Install Node.js dependencies
-        working-directory: magicmusic/frontend
+        working-directory: frontend
         run: npm install
 
       # - name: Run Node.js tests with coverage
