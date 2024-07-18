@@ -40,7 +40,10 @@ def add_music():
         new_music = Music(name=data['name'], singer=data['singer'])
         db.session.add(new_music)
         db.session.commit()
-        return jsonify({'id': new_music.id, 'name': new_music.name, 'singer': new_music.singer}), 201
+        return jsonify({
+            'id': new_music.id,
+            'name': new_music.name,
+            'singer': new_music.singer}), 201
     except Exception as e:
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
 
