@@ -28,7 +28,10 @@ class Music(db.Model):
 def get_musics():
     try:
         musics = Music.query.all()
-        return jsonify([{'id': r.id, 'name': r.name, 'singer': r.singer} for r in musics])
+        return jsonify([{
+            'id': r.id,
+            'name': r.name,
+            'singer': r.singer} for r in musics])
     except Exception as e:
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
 
