@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from app import app, Music
+
 
 class TestMusicAPI(unittest.TestCase):
 
@@ -40,7 +41,8 @@ class TestMusicAPI(unittest.TestCase):
         mock_music.return_value = mock_music_instance
 
         # Act
-        response = self.app.post('/musics', json={'name': 'Song3', 'singer': 'Singer3'})
+        response = self.app.post('/musics', json={
+            'name': 'Song3', 'singer': 'Singer3'})
 
         # Assert
         self.assertEqual(response.status_code, 201)
@@ -49,6 +51,7 @@ class TestMusicAPI(unittest.TestCase):
         self.assertEqual(data['singer'], 'Singer3')
         self.assertTrue(mock_session.add.called)
         self.assertTrue(mock_session.commit.called)
+
 
 if __name__ == '__main__':
     unittest.main()
