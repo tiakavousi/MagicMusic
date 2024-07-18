@@ -6,17 +6,23 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:password@db/musics_db'
+
+# app.config['SQLALCHEMY_DATABASE_URI'] =
+# 'mysql+pymysql://user:password@db/musics_db'
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URI"]
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
 
 class Music(db.Model):
     __tablename__ = 'musics'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     singer = db.Column(db.String(80), nullable=False)
+
 
 @app.route('/musics', methods=['GET'])
 def get_musics():
@@ -25,6 +31,7 @@ def get_musics():
         return jsonify([{'id': r.id, 'name': r.name, 'singer': r.singer} for r in musics])
     except Exception as e:
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
+
 
 @app.route('/musics', methods=['POST'])
 def add_music():
@@ -36,6 +43,7 @@ def add_music():
         return jsonify({'id': new_music.id, 'name': new_music.name, 'singer': new_music.singer}), 201
     except Exception as e:
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
