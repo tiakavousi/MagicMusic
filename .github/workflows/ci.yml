@@ -26,9 +26,9 @@ jobs:
           pip install -r backend/requirements.txt
           pip install flake8 pytest coverage
 
-      # - name: Lint code
-      #   run: |
-      #     flake8 .
+      - name: Lint code
+        run: |
+          flake8 .
 
       # - name: Run tests with coverage
       #   run: |
