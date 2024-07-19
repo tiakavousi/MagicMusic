@@ -30,17 +30,6 @@ jobs:
         run: |
           flake8 .
 
-      # - name: Run tests with coverage
-      #   run: |
-      #     coverage run -m pytest
-      #     coverage report
-      #     coverage xml
-
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     file: ./coverage.xml
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -59,15 +48,4 @@ jobs:
         working-directory: frontend
         run: npm install
 
-      # - name: Run Node.js tests with coverage
-      #   working-directory: magicmusic/frontend
-      #   run: |
-      #     npm run test -- --coverage --reporters=jest-junit
-
-      # - name: Upload Node.js coverage to Codecov
-      #   working-directory: magicmusic/frontend
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     files: ./coverage/jest/lcov-report/*.html
-
-      # export PYTHONPATH=./ 
+      # export PYTHONPATH=./
