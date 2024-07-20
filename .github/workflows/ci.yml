@@ -55,7 +55,10 @@ jobs:
         run: npm install
       - name: Test and coverage
         working-directory: frontend
-        run: npm run test -- --coverage --reporters=jest-junit
+        # run: npm run test -- --coverage --reporters=jest-junit
+        run: |
+          npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
+          cp coverage/lcov-report/lcov.info coverage.lcov
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
