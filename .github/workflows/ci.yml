@@ -1,5 +1,6 @@
 name: CI
 
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -7,18 +8,22 @@ on:
     branches:
       - main
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
+
 
       - name: Install dependencies
         run: |
@@ -26,26 +31,48 @@ jobs:
           pip install -r backend/requirements.txt
           pip install flake8 pytest coverage
 
+
       - name: Lint code
         run: |
           flake8 .
+
+      - name: Run Python tests with coverage
+        env:
+          PYTHONPATH: ./backend
+          DATABASE_URI:  sqlite:///:memory
+        run: |
+          coverage run -m pytest
+          coverage report
+          coverage xml -o backend/coverage.xml
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-      
-      - name: Debug - Print working directory
-        run: pwd
 
-      - name: Debug - List root directory contents
-        run: ls -la
-
-      - name: Debug - List frontend directory contents
-        run: ls -la frontend
 
       - name: Install Node.js dependencies
         working-directory: frontend
         run: npm install
+
+
+      - name: Run Node.js tests with coverage
+        working-directory: frontend
+        run: |
+          npm run test -- --coverage --reporters=jest-junit
+          npx nyc report --reporter=text-lcov > frontend/coverage.lcov
+
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v1
+        with:
+          args: >
+            -Dsonar.organization=Tia
+            -Dsonar.projectKey=tia-kavousi
+            -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+            -Dsonar.javascript.lcov.reportPaths=frontend/coverage.lcov
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
       # export PYTHONPATH=./
