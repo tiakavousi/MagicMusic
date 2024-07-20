@@ -31,7 +31,6 @@ jobs:
           pip install -r backend/requirements.txt
           pip install flake8 pytest coverage
 
-
       - name: Lint code
         run: |
           flake8 .
@@ -55,10 +54,7 @@ jobs:
         run: npm install
       - name: Test and coverage
         working-directory: frontend
-        # run: npm run test -- --coverage --reporters=jest-junit
-        run: |
-          npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
-          cp coverage/lcov.info coverage.lcov || true # Continue even if the file is not found
+        npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
@@ -66,15 +62,9 @@ jobs:
             -Dsonar.organization=tia-kavousi
             -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.python.coverage.reportPaths=backend/coverage.xml
-            
             -Dsonar.javascript.lcov.reportPaths=frontend/coverage/lcov.info
             -Dsonar.branch.name=main
         env:
           SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
 
-      - name: List coverage directory
-        working-directory: frontend
-        run: ls -R coverage
-      - name: Upload coverage report
-        run: cat frontend/coverage/lcov.info
 
