@@ -61,7 +61,7 @@ jobs:
         with:
           args: >
             -Dsonar.organization=tia-kavousi
-            -Dsonar.projectKey=MagicMusic
+            -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.python.coverage.reportPaths=backend/coverage.xml
             -Dsonar.javascript.lcov.reportPaths=frontend/coverage.lcov
             -Dsonar.branch.target=main
