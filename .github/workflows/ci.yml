@@ -60,8 +60,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.organization=Tia
-            -Dsonar.projectKey=MagicMusic
+            -Dsonar.organization=tia-kavousi
             -Dsonar.python.coverage.reportPaths=backend/coverage.xml
             -Dsonar.javascript.lcov.reportPaths=frontend/coverage.lcov
         env:
