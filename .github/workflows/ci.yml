@@ -66,6 +66,3 @@ jobs:
             -Dsonar.javascript.lcov.reportPaths=frontend/coverage.lcov
         env:
           SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
-
-
-      # export PYTHONPATH=./
