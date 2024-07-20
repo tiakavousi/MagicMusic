@@ -67,7 +67,7 @@ jobs:
             -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.python.coverage.reportPaths=backend/coverage.xml
             
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=frontend/coverage/lcov.info
             -Dsonar.branch.name=main
         env:
           SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
