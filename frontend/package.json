@@ -18,26 +18,11 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "jest --coverage --reporters=jest-junit",
+        "test": "jest  --coverage",
         "eject": "react-scripts eject"
     },
     "jest": {
         "collectCoverage": true,
-        "coverageDirectory": "coverage",
-        "collectCoverageFrom": [
-            "src/**/*.{js,jsx}",
-            "!**/node_modules/**",
-            "!**/vendor/**"
-        ],
-        "testMatch": [
-            "**/__tests__/**/*.js?(x)",
-            "**/?(*.)+(spec|test).js?(x)"
-        ],
-        "coverageReporters": [
-            "json",
-            "lcov",
-            "text",
-            "clover"
-        ]
+        "coverageReporters": ["json", "html"]
     }
 }
