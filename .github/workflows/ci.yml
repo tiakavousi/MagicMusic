@@ -70,3 +70,10 @@ jobs:
             -Dsonar.branch.name=main
         env:
           SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
+
+      - name: List coverage directory
+        working-directory: frontend
+        run: ls -R coverage
+      - name: Upload coverage report
+        run: cat frontend/coverage/lcov-report/lcov.info
+
