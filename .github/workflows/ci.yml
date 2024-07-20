@@ -58,7 +58,7 @@ jobs:
         # run: npm run test -- --coverage --reporters=jest-junit
         run: |
           npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
-          cp coverage/lcov-report/lcov.info coverage.lcov || true # Continue even if the file is not found
+          cp coverage/lcov.info coverage.lcov || true # Continue even if the file is not found
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
