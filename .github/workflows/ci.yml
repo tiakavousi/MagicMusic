@@ -50,29 +50,14 @@ jobs:
         with:
           node-version: '20'
 
-
-      - name: Install Node.js dependencies
-        working-directory: frontend
-        run: npm install
-
-
-      - name: Run Node.js tests with coverage
-        working-directory: frontend
-        run: |
-          npm run test -- --coverage --reporters=jest-junit
-          npx nyc report --reporter=text-lcov > frontend/coverage.lcov
-
-
+      - name: Install dependencies
+        run: yarn
+      - name: Test and coverage
+        run: yarn jest --coverage
       - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v1
-        with:
-          args: >
-            -Dsonar.organization=Tia
-            -Dsonar.projectKey=tia-kavousi
-            -Dsonar.python.coverage.reportPaths=backend/coverage.xml
-            -Dsonar.javascript.lcov.reportPaths=frontend/coverage.lcov
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
 
 
       # export PYTHONPATH=./
