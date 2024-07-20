@@ -23,13 +23,11 @@
     },
     "jest": {
         "collectCoverage": true,
-        "coverageReporters": ["json", "lcov", "text", "clover"],
-        "reporters": [
-            "default",
-            ["jest-junit", {
-                "outputDirectory": "coverage",
-                "outputName": "junit.xml"
-            }]
-        ]
+        "coverageDirectory": "coverage",
+        "testMatch": [
+        "**/__tests__/**/*.js?(x)",
+        "**/?(*.)+(spec|test).js?(x)"
+        ],
+        "coverageReporters": ["json", "lcov", "text", "clover"]
     }
 }
