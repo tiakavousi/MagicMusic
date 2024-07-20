@@ -57,10 +57,12 @@ jobs:
 
 
       - name: Lint Frontend
-        run: |
-          npm run lint
-          npm run format
         working-directory: frontend
+        run: npm run lint
+
+      - name: Format Frontend
+        working-directory: frontend
+        run: npm run format
       
       - name: Test and coverage
         working-directory: frontend
