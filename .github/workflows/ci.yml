@@ -58,6 +58,12 @@ jobs:
         run: npm run test -- --coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.organization=Tia
+            -Dsonar.projectKey=tia-kavousi
+            -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+            -Dsonar.javascript.lcov.reportPaths=frontend/coverage.lcov
         env:
           SONAR_TOKEN: ${{ secrets. SONARCLOUD_TOKEN }}
 
