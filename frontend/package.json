@@ -24,6 +24,11 @@
     "jest": {
         "collectCoverage": true,
         "coverageDirectory": "coverage",
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx}",
+            "!**/node_modules/**",
+            "!**/vendor/**"
+        ],
         "testMatch": [
         "**/__tests__/**/*.js?(x)",
         "**/?(*.)+(spec|test).js?(x)"

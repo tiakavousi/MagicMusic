@@ -39,6 +39,7 @@ jobs:
       - name: Run Python tests with coverage
         env:
           PYTHONPATH: ./backend
+          DATABASE_URI:  sqlite:///:memory
         run: |
           coverage run -m pytest
           coverage report
