@@ -7,20 +7,22 @@ function App() {
   const [singer, setSinger] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/musics')
-      .then(response => setMusics(response.data))
-      .catch(error => console.error(error));
+    axios
+      .get('http://localhost:5000/musics')
+      .then((response) => setMusics(response.data))
+      .catch((error) => console.error(error));
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/musics', { name, singer })
-      .then(response => {
+    axios
+      .post('http://localhost:5000/musics', { name, singer })
+      .then((response) => {
         setMusics([...musics, { name, singer }]);
         setName('');
         setSinger('');
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -46,7 +48,9 @@ function App() {
       <h2>Musics</h2>
       <ul>
         {musics.map((music, index) => (
-          <li key={index}>{music.name}, {music.singer}</li>
+          <li key={index}>
+            {music.name}, {music.singer}
+          </li>
         ))}
       </ul>
     </div>
