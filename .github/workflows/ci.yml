@@ -37,6 +37,8 @@ jobs:
           flake8 .
 
       - name: Run Python tests with coverage
+        env:
+          PYTHONPATH: ./backend
         run: |
           coverage run -m pytest
           coverage report
