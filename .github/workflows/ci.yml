@@ -31,7 +31,7 @@ jobs:
           pip install -r backend/requirements.txt
           pip install flake8 pytest coverage
 
-      - name: Lint code
+      - name: Lint Backend
         run: |
           flake8 .
 
@@ -44,14 +44,24 @@ jobs:
           coverage report
           coverage xml -o backend/coverage.xml
 
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+
       - name: Install dependencies
         working-directory: frontend
         run: npm install
+
+
+      - name: Lint Frontend
+        run: |
+          npm run lint
+          npm run format
+        working-directory: frontend
+      
       - name: Test and coverage
         working-directory: frontend
         npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
