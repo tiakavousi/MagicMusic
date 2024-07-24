@@ -5,11 +5,23 @@ function App() {
   const [musics, setMusics] = useState([]);
   const [name, setName] = useState('');
   const [singer, setSinger] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios.get('http://localhost:5000/musics')
-      .then(response => setMusics(response.data))
-      .catch(error => console.error(error));
+      .then(response => {
+        setMusics(response.data);
+        setError(null);
+      })
+      .catch(error => {
+        console.error(error);
+        setError('Failed to fetch musics. Please try again later.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const handleSubmit = (event) => {
@@ -19,8 +31,12 @@ function App() {
         setMusics([...musics, { name, singer }]);
         setName('');
         setSinger('');
+        setError(null);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        setError('Failed to add music. Please try again later.');
+      });
   };
 
   return (
@@ -43,6 +59,8 @@ function App() {
         />
         <button type="submit">Add to playlist</button>
       </form>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <h2>Musics</h2>
       <ul>
         {musics.map((music, index) => (
