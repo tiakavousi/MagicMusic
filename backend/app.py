@@ -6,13 +6,15 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI",
-                                                       "sqlite:///:memory:")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", "sqlite:///:memory:")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-
+try:
+    db = SQLAlchemy(app)
+    db_initialized = True
+except Exception as e:
+    db_initialized = False
+    db_error_message = str(e)
 
 class Music(db.Model):
     __tablename__ = 'musics'
@@ -20,9 +22,10 @@ class Music(db.Model):
     name = db.Column(db.String(80), nullable=False)
     singer = db.Column(db.String(80), nullable=False)
 
-
 @app.route('/musics', methods=['GET'])
 def get_musics():
+    if not db_initialized:
+        return jsonify({'error': 'Database not initialized', 'message': db_error_message}), 500
     try:
         musics = Music.query.all()
         return jsonify([{
@@ -32,9 +35,10 @@ def get_musics():
     except Exception as e:
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
 
-
 @app.route('/musics', methods=['POST'])
 def add_music():
+    if not db_initialized:
+        return jsonify({'error': 'Database not initialized', 'message': db_error_message}), 500
     data = request.json
     try:
         new_music = Music(name=data['name'], singer=data['singer'])
@@ -46,7 +50,6 @@ def add_music():
             'singer': new_music.singer}), 201
     except Exception as e:
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
