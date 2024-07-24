@@ -6,7 +6,8 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", "sqlite:///:memory:")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI",
+                                                       "sqlite:///:memory:")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 try:
@@ -25,7 +26,9 @@ class Music(db.Model):
 @app.route('/musics', methods=['GET'])
 def get_musics():
     if not db_initialized:
-        return jsonify({'error': 'Database not initialized', 'message': db_error_message}), 500
+        return jsonify({
+            'error': 'Database not initialized', 'message': db_error_message
+            }), 500
     try:
         musics = Music.query.all()
         return jsonify([{
@@ -38,7 +41,9 @@ def get_musics():
 @app.route('/musics', methods=['POST'])
 def add_music():
     if not db_initialized:
-        return jsonify({'error': 'Database not initialized', 'message': db_error_message}), 500
+        return jsonify({
+            'error': 'Database not initialized', 'message': db_error_message
+            }), 500
     data = request.json
     try:
         new_music = Music(name=data['name'], singer=data['singer'])

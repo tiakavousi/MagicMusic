@@ -2,8 +2,8 @@ FROM python:3.9
 
 WORKDIR /app
 
-COPY . .
+COPY ./backend .
 
-RUN pip install --no-cache-dir -r ./backend/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "app.py"]
