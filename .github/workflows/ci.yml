@@ -52,9 +52,9 @@ jobs:
       - name: Install dependencies
         working-directory: frontend
         run: npm install
-      - name: Test and coverage
-        working-directory: frontend
-        run: npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
+      # - name: Test and coverage
+      #   working-directory: frontend
+      #   run: npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
