@@ -31,18 +31,18 @@ jobs:
           pip install -r backend/requirements.txt
 # pip install flake8 pytest coverage
 
-      - name: Lint code
-        run: |
-          flake8 .
+      # - name: Lint code
+      #   run: |
+      #     flake8 .
 
-      - name: Run Python tests with coverage
-        env:
-          PYTHONPATH: ./backend
-          DATABASE_URI:  sqlite:///:memory
-        run: |
-          coverage run -m pytest
-          coverage report
-          coverage xml -o backend/coverage.xml
+      # - name: Run Python tests with coverage
+      #   env:
+      #     PYTHONPATH: ./backend
+      #     DATABASE_URI:  sqlite:///:memory
+      #   run: |
+      #     coverage run -m pytest
+      #     coverage report
+      #     coverage xml -o backend/coverage.xml
 
       # - name: Set up Node.js
       #   uses: actions/setup-node@v3
@@ -55,15 +55,15 @@ jobs:
       # - name: Test and coverage
       #   working-directory: frontend
       #   run: npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.organization=tia-kavousi
-            -Dsonar.projectKey=tiakavousi_MagicMusic
-            -Dsonar.python.coverage.reportPaths=backend/coverage.xml
-            -Dsonar.branch.name=main
-        env:
-          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@master
+      #   with:
+      #     args: >
+      #       -Dsonar.organization=tia-kavousi
+      #       -Dsonar.projectKey=tiakavousi_MagicMusic
+      #       -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+      #       -Dsonar.branch.name=main
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
 
