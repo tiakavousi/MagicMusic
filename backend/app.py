@@ -5,6 +5,7 @@ import os
 
 db = SQLAlchemy()
 
+
 def create_app():
     app = Flask(__name__)
     CORS(app)
@@ -30,7 +31,8 @@ def create_app():
     def get_musics():
         if not db_initialized:
             return jsonify({
-                'error': 'Database not initialized', 'message': db_error_message
+                'error': 'Database not initialized',
+                'message': db_error_message
                 }), 500
         try:
             musics = Music.query.all()
@@ -45,7 +47,8 @@ def create_app():
     def add_music():
         if not db_initialized:
             return jsonify({
-                'error': 'Database not initialized', 'message': db_error_message
+                'error': 'Database not initialized',
+                'message': db_error_message
                 }), 500
         data = request.json
         try:
@@ -57,9 +60,12 @@ def create_app():
                 'name': new_music.name,
                 'singer': new_music.singer}), 201
         except Exception as e:
-            return jsonify({'error': 'Database error', 'message': str(e)}), 500
+            return jsonify({
+                'error': 'Database error', 'message': str(e)
+                }), 500
 
     return app
+
 
 if __name__ == "__main__":
     app = create_app()
