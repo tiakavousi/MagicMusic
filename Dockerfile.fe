@@ -1,13 +1,7 @@
-FROM node:20
-
-WORKDIR /app
-
-COPY ./frontend/package*.json ./
-
-RUN npm install
+FROM nginx:alpine
 
 COPY . .
 
-EXPOSE 3000
+COPY frontend /usr/share/nginx/html
 
-CMD ["npm", "start"]
+EXPOSE 80

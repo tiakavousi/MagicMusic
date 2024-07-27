@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic Musics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Magic Musics</h1>
+  <form id="music-form">
+    <input type="text" id="name" placeholder="Music's Name" required>
+    <input type="text" id="singer" placeholder="Singer's Name" required>
+    <button type="submit">Add to playlist</button>
+  </form>
+  <p id="loading" style="display:none;">Loading...</p>
+  <p id="error" class="error" style="display:none;"></p>
+  <h2>Musics</h2>
+  <ul id="music-list"></ul>
+
+  <script src="app.js"></script>
+</body>
+</html>

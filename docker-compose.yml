@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    build: Dockerfile.be
+    build: 
+      context: .
+      dockerfile: Dockerfile.be
     ports:
       - "5000:5000"
     environment:
@@ -11,9 +13,11 @@ services:
       - db
 
   frontend:
-    build: Dockerfile.fe
+    build: 
+      context: .
+      dockerfile: Dockerfile.fe
     ports:
-      - "3000:3000"
+      - "3000:80"
 
   db:
     image: mysql:8.0

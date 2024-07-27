@@ -44,14 +44,14 @@ jobs:
           coverage report
           coverage xml -o backend/coverage.xml
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '20'
 
-      - name: Install dependencies
-        working-directory: frontend
-        run: npm install
+      # - name: Install dependencies
+      #   working-directory: frontend
+      #   run: npm install
       # - name: Test and coverage
       #   working-directory: frontend
       #   run: npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
@@ -62,7 +62,6 @@ jobs:
             -Dsonar.organization=tia-kavousi
             -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.python.coverage.reportPaths=backend/coverage.xml
-            -Dsonar.javascript.lcov.reportPaths=frontend/coverage/lcov.info
             -Dsonar.branch.name=main
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
