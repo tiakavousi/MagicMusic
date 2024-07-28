@@ -7,7 +7,8 @@ app = Flask(__name__)
 def cors_origin_func(origin):
     allowed_origins = [
         "http://localhost",
-        "http://*.amazonaws.com"
+        "http://*.amazonaws.com",
+        "*.us-east-1.elb.amazonaws.com",
     ]
     for pattern in allowed_origins:
         if origin.startswith(pattern.replace('*', '')):
