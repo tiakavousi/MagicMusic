@@ -23,6 +23,8 @@ def index():
     return send_from_directory(app.static_folder, 'index.html')
 
 
+    
+
 @app.route('/greet', methods=['POST'])
 def greet():
     name = request.json['name']
@@ -30,7 +32,12 @@ def greet():
     cursor.execute("INSERT INTO users (name) VALUES (%s)", (name,))
     mysql.connection.commit()
     cursor.close()
-    return jsonify({'message': f'Hello, {name}!'})
+    headers = {'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
+
+    return jsonify({'message': f'Hello, {name}!',
+                    'headers': headers})
 
 
 if __name__ == '__main__':

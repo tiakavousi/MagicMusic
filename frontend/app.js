@@ -18,6 +18,7 @@ document.getElementById('greet-form').addEventListener('submit', async function(
         const response = await fetch(url, {
             method: 'POST', 
             headers: headers,
+            statusCode: 200,
             body: JSON.stringify(data),
         });
         const result = await response.json();
