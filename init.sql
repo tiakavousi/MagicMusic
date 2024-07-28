@@ -1,11 +1,11 @@
-USE `musics_db`;
+CREATE DATABASE IF NOT EXISTS greeting_app;
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'user_password';
+GRANT ALL PRIVILEGES ON greeting_app.* TO 'user'@'%';
+FLUSH PRIVILEGES;
 
-CREATE DATABASE IF NOT EXISTS musics_db;
+USE greeting_app;
 
-USE musics_db;
-
-CREATE TABLE IF NOT EXISTS musics (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(80) NOT NULL,
-    singer VARCHAR(80) NOT NULL
+    name VARCHAR(255) NOT NULL
 );

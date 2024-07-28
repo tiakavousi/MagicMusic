@@ -1,7 +1,11 @@
-FROM nginx:alpine
+FROM node:18-alpine
 
-COPY . .
+RUN npm install -g http-server
+WORKDIR /usr/src/app
 
-COPY frontend /usr/share/nginx/html
+COPY frontend/index.html .
+COPY frontend/app.js .
 
-EXPOSE 80
+EXPOSE 3000
+
+CMD ["http-server", "-p", "3000"]

@@ -1,7 +1,6 @@
 Flask
 Flask-RESTful
-Flask-SQLAlchemy
-PyMySQL
+Flask-MySQLdb
 flask-cors
 flask_testing
 cryptography

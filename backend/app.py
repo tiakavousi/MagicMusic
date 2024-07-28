@@ -1,72 +1,35 @@
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-import os
+from flask import Flask, request, jsonify, send_from_directory
+from flask_mysqldb import MySQL
+from flask_cors import CORS, cross_origin
 
-db = SQLAlchemy()
-
-
-def create_app():
-    app = Flask(__name__)
-    CORS(app)
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI")
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    try:
-        db.init_app(app)
-        db.create_all()  # Ensure the database is created
-        db_initialized = True
-    except Exception as e:
-        db_initialized = False
-        db_error_message = str(e)
-
-    class Music(db.Model):
-        __tablename__ = 'musics'
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(80), nullable=False)
-        singer = db.Column(db.String(80), nullable=False)
-
-    @app.route('/musics', methods=['GET'])
-    def get_musics():
-        if not db_initialized:
-            return jsonify({
-                'error': 'Database not initialized',
-                'message': db_error_message
-                }), 500
-        try:
-            musics = Music.query.all()
-            return jsonify([{
-                'id': r.id,
-                'name': r.name,
-                'singer': r.singer} for r in musics])
-        except Exception as e:
-            return jsonify({'error': 'Database error', 'message': str(e)}), 500
-
-    @app.route('/musics', methods=['POST'])
-    def add_music():
-        if not db_initialized:
-            return jsonify({
-                'error': 'Database not initialized',
-                'message': db_error_message
-                }), 500
-        data = request.json
-        try:
-            new_music = Music(name=data['name'], singer=data['singer'])
-            db.session.add(new_music)
-            db.session.commit()
-            return jsonify({
-                'id': new_music.id,
-                'name': new_music.name,
-                'singer': new_music.singer}), 201
-        except Exception as e:
-            return jsonify({
-                'error': 'Database error', 'message': str(e)
-                }), 500
-
-    return app
+app = Flask(__name__)
+CORS(app, support_credentials=True, resources={r"/*": {"origins": "*"}})
 
 
-if __name__ == "__main__":
-    app = create_app()
-    app.run(host='0.0.0.0')
+# MySQL configurations
+app.config['MYSQL_USER'] = 'user'
+app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_DB'] = 'greeting_app'
+app.config['MYSQL_HOST'] = 'db'
+
+mysql = MySQL(app)
+
+
+@app.route('/')
+@cross_origin(supports_credentials=True)
+def index():
+    return send_from_directory(app.static_folder, 'index.html')
+
+
+@app.route('/greet', methods=['POST'])
+def greet():
+    name = request.json['name']
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT INTO users (name) VALUES (%s)", (name,))
+    mysql.connection.commit()
+    cursor.close()
+    return jsonify({'message': f'Hello, {name}!'})
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000,  debug=True)

@@ -2,8 +2,10 @@ FROM python:3.9
 
 WORKDIR /app
 
-COPY ./backend .
+COPY backend/requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY backend /app
+EXPOSE 5000
 
 CMD ["python", "app.py"]
