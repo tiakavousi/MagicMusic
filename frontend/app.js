@@ -10,21 +10,6 @@ document.getElementById('greet-form').addEventListener('submit', async function(
         'Accept':'application/json'
     }
 
-//    const response = await fetch(url, {
-//         method: 'POST', 
-//         headers: headers,
-//         body: JSON.stringify(data), 
-//     })
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch((error) => {
-//         console.error('Error:', error);
-//     });
-//     if (response.ok) {
-//         const result = response.json();
-//         document.getElementById('greeting-message').innerText = result.message;
-//     }
-
     try {
         const response = await fetch(url, {
             method: 'POST', 
@@ -38,3 +23,4 @@ document.getElementById('greet-form').addEventListener('submit', async function(
         console.error('Error:', error);
     }
 });
+
