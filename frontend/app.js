@@ -10,13 +10,19 @@ document.getElementById('greet-form').addEventListener('submit', async function(
     //     'Accept':'application/json'
     // }
 
-    const headers = {'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
+    // const headers = {'Content-Type':'application/json',
+    //     'Access-Control-Allow-Origin':'*',
+    //     'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
+    const headers = {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+    }
 
     try {
         const response = await fetch(url, {
             method: 'POST', 
+            statusCode: 200,
             headers: headers,
             body: JSON.stringify(data),
         });

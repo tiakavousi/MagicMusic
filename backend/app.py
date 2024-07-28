@@ -5,7 +5,8 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 
 # CORS(app, resources=r'/greet/*')
-CORS(app)
+# CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'user'
@@ -17,16 +18,14 @@ app.config['MYSQL_PORT'] = 3306
 mysql = MySQL(app)
 
 
-
 @app.route('/')
 @cross_origin(supports_credentials=True)
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
 
-    
-
 @app.route('/greet', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def greet():
     name = request.json['name']
     cursor = mysql.connection.cursor()
