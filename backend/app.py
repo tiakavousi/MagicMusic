@@ -4,20 +4,7 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 
-def cors_origin_func(origin):
-    allowed_origins = [
-        "http://localhost",
-        "http://127.0.0.1",
-        "http://*.amazonaws.com",
-        "*.us-east-1.elb.amazonaws.com",
-    ]
-    for pattern in allowed_origins:
-        if origin.startswith(pattern.replace('*', '')):
-            return True
-    return False
-
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": cors_origin_func}})
-
+CORS(app, resources=r'/greet/*')
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'user'
@@ -27,7 +14,6 @@ app.config['MYSQL_HOST'] = 'db'
 app.config['MYSQL_PORT'] = 3306
 
 mysql = MySQL(app)
-
 
 
 
@@ -48,4 +34,4 @@ def greet():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000,  debug=True)
+    app.run(host='0.0.0.0', port=5000,  debug=False)

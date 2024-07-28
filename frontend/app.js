@@ -2,7 +2,7 @@ document.getElementById('greet-form').addEventListener('submit', async function(
     event.preventDefault();
     const name = document.getElementById('name').value;
 
-    const url = 'http://127.0.0.1:5000/greet';
+    const url = 'http://localhost:5000/greet';
     const data = {"name": name};
 
     const headers={
@@ -14,7 +14,7 @@ document.getElementById('greet-form').addEventListener('submit', async function(
         const response = await fetch(url, {
             method: 'POST', 
             headers: headers,
-            body: JSON.stringify(data), 
+            body: JSON.stringify(data),
         });
         const result = await response.json();
         console.log(result);
