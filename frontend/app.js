@@ -1,26 +1,40 @@
 document.getElementById('greet-form').addEventListener('submit', async function(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
+
+    const url = 'http://localhost:5000/greet';
+    const data = {"name": name};
+
+    const headers={
+        'Content-type':'application/json', 
+        'Accept':'application/json'
+    }
+
+//    const response = await fetch(url, {
+//         method: 'POST', 
+//         headers: headers,
+//         body: JSON.stringify(data), 
+//     })
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch((error) => {
+//         console.error('Error:', error);
+//     });
+//     if (response.ok) {
+//         const result = response.json();
+//         document.getElementById('greeting-message').innerText = result.message;
+//     }
+
     try {
-        const response = await fetch('http://backend:5000/greet', {
-            method: 'POST',
-            headers: {
-               xhrFields: {
-                withCredentials: true
-                },
-                crossDomain: true,
-                contentType: 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify({ name })
+        const response = await fetch(url, {
+            method: 'POST', 
+            headers: headers,
+            body: JSON.stringify(data), 
         });
-        if (response.ok) {
-            const result = await response.json();
-            document.getElementById('greeting-message').innerText = result.message;
-        } else {
-            document.getElementById('greeting-message').innerText = 'Error: Unable to greet!';
-        }
+        const result = await response.json();
+        console.log(result);
+        document.getElementById('greeting-message').innerText = result.message;
     } catch (error) {
-        console.error('Fetch error:', error);
-        document.getElementById('greeting-message').innerText = 'Error: Unable to greet!';
+        console.error('Error:', error);
     }
 });

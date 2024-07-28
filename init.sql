@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS greeting_app;
-CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'user_password';
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON greeting_app.* TO 'user'@'%';
 FLUSH PRIVILEGES;
 
