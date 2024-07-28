@@ -5,10 +5,14 @@ document.getElementById('greet-form').addEventListener('submit', async function(
     const url = 'http://localhost:5000/greet';
     const data = {"name": name};
 
-    const headers={
-        'Content-type':'application/json', 
-        'Accept':'application/json'
-    }
+    // const headers={
+    //     'Content-type':'application/json', 
+    //     'Accept':'application/json'
+    // }
+
+    const headers = {'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
 
     try {
         const response = await fetch(url, {
