@@ -2,7 +2,7 @@ document.getElementById('greet-form').addEventListener('submit', async function(
     event.preventDefault();
     const name = document.getElementById('name').value;
 
-    const url = 'http://localhost:5000/greet';
+    const url = 'http://127.0.0.1:5000/greet';
     const data = {"name": name};
 
     const headers={
