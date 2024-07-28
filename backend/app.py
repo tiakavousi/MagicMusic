@@ -3,7 +3,18 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-CORS(app, support_credentials=True, resources={r"/*": {"origins": "*"}})
+
+def cors_origin_func(origin):
+    allowed_origins = [
+        "http://localhost",
+        "http://*.amazonaws.com"
+    ]
+    for pattern in allowed_origins:
+        if origin.startswith(pattern.replace('*', '')):
+            return True
+    return False
+
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": cors_origin_func}})
 
 
 # MySQL configurations
@@ -14,6 +25,8 @@ app.config['MYSQL_HOST'] = 'db'
 app.config['MYSQL_PORT'] = 3306
 
 mysql = MySQL(app)
+
+
 
 
 @app.route('/')
