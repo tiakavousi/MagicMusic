@@ -27,7 +27,7 @@ services:
       - backend
     networks:
       - mynetwork
-
+   
   db:
     image: mysql:8.0
     environment:
@@ -50,3 +50,6 @@ networks:
 
 
 # mysql -u user -p -h localhost
+
+# frontend: http://ecs-alb-819341957.us-east-1.elb.amazonaws.com/"
+# backend: http://127.0.0.1:5000  and Running on http://10.0.2.238:5000

@@ -4,7 +4,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, resources=r'/greet/*')
+
+CORS(app, resources={r"/*": {"origins": "*"}})
+# CORS(app, resources=r'/greet/*')
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # MySQL configurations
