@@ -4,7 +4,8 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 
-CORS(app, resources=r'/greet/*')
+# CORS(app, resources=r'/greet/*')
+CORS(app)
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'user'
