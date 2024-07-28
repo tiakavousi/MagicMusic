@@ -1,12 +1,11 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_mysqldb import MySQL
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
 
-# CORS(app, resources=r'/greet/*')
-# CORS(app)
-# app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app, resources=r'/greet/*')
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # MySQL configurations
 app.config['MYSQL_USER'] = 'user'
@@ -19,25 +18,19 @@ mysql = MySQL(app)
 
 
 @app.route('/')
-@cross_origin(supports_credentials=True)
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/greet', methods=['POST'])
-@cross_origin(supports_credentials=True)
 def greet():
     name = request.json['name']
     cursor = mysql.connection.cursor()
     cursor.execute("INSERT INTO users (name) VALUES (%s)", (name,))
     mysql.connection.commit()
     cursor.close()
-    headers = {'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
 
-    return jsonify({'message': f'Hello, {name}!',
-                    'headers': headers})
+    return jsonify({'message': f'Hello, {name}'})
 
 
 if __name__ == '__main__':
