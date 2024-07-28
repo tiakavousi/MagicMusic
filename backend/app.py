@@ -7,6 +7,7 @@ app = Flask(__name__)
 def cors_origin_func(origin):
     allowed_origins = [
         "http://localhost",
+        "http://127.0.0.1",
         "http://*.amazonaws.com",
         "*.us-east-1.elb.amazonaws.com",
     ]
