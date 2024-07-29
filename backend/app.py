@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify, send_from_directory
+import logging
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 
 app = Flask(__name__)
 
 
-CORS(app, resources={r"/*": {"origins": "*"}})
-# CORS(app, resources=r'/greet/*')
+# CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # MySQL configurations
@@ -15,6 +16,7 @@ app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'greeting_app'
 app.config['MYSQL_HOST'] = 'db'
 app.config['MYSQL_PORT'] = 3306
+
 
 mysql = MySQL(app)
 
@@ -35,5 +37,8 @@ def greet():
     return jsonify({'message': f'Hello, {name}'})
 
 
+logging.getLogger('flask_cors').level = logging.DEBUG
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000,  debug=False)
+    app.run(host='0.0.0.0', port=5000,  debug=True)
