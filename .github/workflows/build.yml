@@ -49,53 +49,53 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
             ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:latest
           no-cache: true
-      # # Deploy Trigger (Key Changes Here)
-      # - name: Get Task Definition ARN for Frontend
-      #   id: get_task_definition_arn_frontend
-      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-      #   with:
-      #     task-definition: my-task
-      #     container-name: frontend
-      #     image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
-      # - name: Get Task Definition ARN for Backend
-      #   id: get_task_definition_arn_backend
-      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-      #   with:
-      #     task-definition: my-task
-      #     container-name: backend
-      #     image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-be:${{ env.VERSION }}
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_SECRET_ACCESS_REGION }}
-      # - name: Trigger CodeDeploy Deployment
-      #   uses: ItsKarma/aws-cli@v1.70.0
-      #   with:
-      #     args: |
-      #       deploy create-deployment \
-      #       --application-name example \
-      #       --deployment-group-name example \
-      #       --description "Deploying version ${{ env.VERSION }}" \
-      #       --revision file://appspec.zip
-      # - name: Inject Task Definition ARNs into appspec.json
-      #   run: |
-      #     sed -i 's|"${task_definition_frontend}"|${{ steps.get_task_definition_arn_frontend.outputs.task-definition }}|' appspec.json
-      #     sed -i 's|"${task_definition_backend}"|${{ steps.get_task_definition_arn_backend.outputs.task-definition }}|' appspec.json
-      #     cat appspec.json  # (Optional: Print the modified appspec.json for verification)
-      # - name: Download and Zip appspec.json
-      #   run: |
-      #     echo "Downloading appspec.json from https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/workflows/appspec.json"
-      #     curl -o appspec.json https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/workflows/appspec.json || {
-      #       echo "Failed to download appspec.json"
-      #       cat appspec.json  
-      #       exit 1
-      #     }
-      #     echo "Downloaded appspec.json:"
-      #     cat appspec.json    
-      #     echo "Zipping appspec.json"
-      #     zip appspec.zip appspec.json || {
-      #       echo "Failed to create appspec.zip"
-      #       exit 1
-      #     }
+      # Deploy Trigger (Key Changes Here)
+      - name: Get Task Definition ARN for Frontend
+        id: get_task_definition_arn_frontend
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: my-task
+          container-name: frontend
+          image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
+      - name: Get Task Definition ARN for Backend
+        id: get_task_definition_arn_backend
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: my-task
+          container-name: backend
+          image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-be:${{ env.VERSION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_SECRET_ACCESS_REGION }}
+      - name: Trigger CodeDeploy Deployment
+        uses: ItsKarma/aws-cli@v1.70.0
+        with:
+          args: |
+            deploy create-deployment \
+            --application-name example \
+            --deployment-group-name example \
+            --description "Deploying version ${{ env.VERSION }}" \
+            --revision file://appspec.zip
+      - name: Inject Task Definition ARNs into appspec.json
+        run: |
+          sed -i 's|"${task_definition_frontend}"|${{ steps.get_task_definition_arn_frontend.outputs.task-definition }}|' appspec.json
+          sed -i 's|"${task_definition_backend}"|${{ steps.get_task_definition_arn_backend.outputs.task-definition }}|' appspec.json
+          cat appspec.json  # (Optional: Print the modified appspec.json for verification)
+      - name: Download and Zip appspec.json
+        run: |
+          echo "Downloading appspec.json from https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/workflows/appspec.json"
+          curl -o appspec.json https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/workflows/appspec.json || {
+            echo "Failed to download appspec.json"
+            cat appspec.json  
+            exit 1
+          }
+          echo "Downloaded appspec.json:"
+          cat appspec.json
+          echo "Zipping appspec.json"
+          zip appspec.zip appspec.json || {
+            echo "Failed to create appspec.zip"
+            exit 1
+          }
