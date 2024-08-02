@@ -58,7 +58,7 @@ jobs:
           environment-variables: |
             LOG_LEVEL=info
             ENVIRONMENT=prod
-            docker-labels: |
+          docker-labels: |
             SERVICE=frontend
             VERSION=version
       - name: Deploy to Amazon ECS service
