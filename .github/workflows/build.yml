@@ -49,24 +49,24 @@ jobs:
           no-cache: true
       # Deploy Trigger (Key Changes Here)
       - name: Render Amazon ECS task definition for first container
-            id: render-web-container
-            uses: aws-actions/amazon-ecs-render-task-definition@v1
-            with:
-              task-definition: task-definition.json
-              container-name: frontend
-              image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
-              environment-variables: |
-                  LOG_LEVEL=info
-                  ENVIRONMENT=prod
-              docker-labels: |
-                  SERVICE=frontend
-                  VERSION=version
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: frontend
+          image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
+        environment-variables: |
+          LOG_LEVEL=info
+          ENVIRONMENT=prod
+          docker-labels: |
+          SERVICE=frontend
+          VERSION=version
       - name: Deploy to Amazon ECS service
-            uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-            with:
-              task-definition: ${{ steps.render-app-container.outputs.task-definition }}
-              service: frontend
-              cluster: frontend
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.render-app-container.outputs.task-definition }}
+          service: frontend
+          cluster: frontend
 
 
       - name: Get Task Definition ARN for Backend
