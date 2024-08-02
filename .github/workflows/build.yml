@@ -87,7 +87,8 @@ jobs:
           aws-region:  ${{ secrets.AWS_SECRET_ACCESS_REGION }}
 
       - name: Trigger CodeDeploy Deployment
-        uses: roimor/aws-cli-action@v1
+       - name: S3 Sync
+          uses: ItsKarma/aws-cli@v1.70.0
           with:
             deploy create-deployment \
             --application-name example \
