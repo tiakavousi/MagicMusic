@@ -2,7 +2,7 @@ document.getElementById('greet-form').addEventListener('submit', async function(
     event.preventDefault();
     const name = document.getElementById('name').value;
 
-    const url = 'http://backend-service:5000/greet';
+    const url = 'http://backend-service.magicmusic.svc.cluster.local:5000/greet';
 //const url = 'http://backend-service.magicmusic.local:5000/greet';
 //const url = 'http://backend:5000/greet';
     try {
