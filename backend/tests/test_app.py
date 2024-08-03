@@ -7,6 +7,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(current_dir)
 sys.path.append(project_root)
 
+
 from app import app
 
 
@@ -22,12 +23,12 @@ class TestGreetAPI(unittest.TestCase):
             'flask_mysqldb.MySQL.connection.cursor',
             MagicMock(return_value=MagicMock()))
         self.mock_cursor = self.mock_cursor_patcher.start()
-       
+
     def tearDown(self):
         # Stop the patches
         self.mock_cursor_patcher.stop()
         self.mock_connection_patcher.stop()
-    
+
     def test_greet_success(self):
         payload = {"name": "Alice"}
         response = self.app.post('/greet', json=payload)
