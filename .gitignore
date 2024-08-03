@@ -40,10 +40,6 @@ build/
 *.test.tsx
 *.log
 
-# Jest configuration files
-jest.config.js
-jest.config.ts
-
 # Test coverage reports
 coverage/
 *.lcov
