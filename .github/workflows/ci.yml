@@ -53,10 +53,6 @@ jobs:
         working-directory: frontend
         run: npm install
 
-      # - name: Install dependencies
-      #   working-directory: frontend 
-      #   run: npm ci  # Use 'npm ci' to install from the lockfile
-
       - name: Test and coverage
         working-directory: frontend
         run: npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
