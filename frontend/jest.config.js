@@ -1,6 +1,6 @@
 module.exports = {
   testMatch: [
-    "**/src/__tests__/App.test.js",
+    "**/src/__tests__/**/*.[jt]s?(x)"
   ],
   setupFiles: ['<rootDir>/jest.setup.js'],
   transform: {
@@ -11,4 +11,3 @@ module.exports = {
   ],
   testEnvironment: 'jest-environment-jsdom',
 };
-
