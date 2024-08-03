@@ -16,4 +16,3 @@ document.getElementById('greet-form').addEventListener('submit', async function(
         console.error('Error:', error);
     } 
 });
-
