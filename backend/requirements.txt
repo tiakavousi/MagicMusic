@@ -7,6 +7,7 @@ cryptography
 Flask-Migrate
 coverage
 pytest
+pytest-cov
 
 
 
