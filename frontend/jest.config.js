@@ -1,6 +1,6 @@
 module.exports = {
   testMatch: [
-    "**/src/__tests__/*.js?(x)",
+    "**/src/__tests__/App.test.js",
   ],
   setupFiles: ['<rootDir>/jest.setup.js'],
   transform: {
