@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  backend:
+  backend-service:
     build: 
       context: .
       dockerfile: Dockerfile.be
@@ -23,8 +23,10 @@ services:
       dockerfile: Dockerfile.fe
     ports:
       - "3000:3000"
+    environment:
+      - BACKEND_SERVICE=backend-service
     depends_on:
-      - backend
+      - backend-service
     networks:
       - mynetwork
    

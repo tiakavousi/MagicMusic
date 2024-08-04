@@ -7,7 +7,9 @@ app = Flask(__name__)
 
 
 # CORS(app, resources={r"/*": {"origins": "*"}})
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+# CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.config['MYSQL_USER'] = 'user'
