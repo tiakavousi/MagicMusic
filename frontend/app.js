@@ -2,7 +2,7 @@ document.getElementById('greet-form').addEventListener('submit', async function(
     event.preventDefault();
     const name = document.getElementById('name').value;
 
-    const url = 'http://backend-service:5000/greet';
+    const url = 'backend-service:5000/greet';
 
     try {
         const response = await fetch(url, {
