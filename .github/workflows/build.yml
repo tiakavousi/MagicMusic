@@ -27,82 +27,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build and Push Backend Image
+      - name: Build and Push Image
         uses: docker/build-push-action@0a97817b6ade9f46837855d676c4cca3a2471fc9
         with:
           context: .
-          file: Dockerfile.be
-          push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/magicmusic-be:${{ env.VERSION }}
-            ${{ secrets.DOCKER_USERNAME }}/magicmusic-be:latest
-          no-cache: true
-      - name: Build and Push Frontend Image
-        uses: docker/build-push-action@0a97817b6ade9f46837855d676c4cca3a2471fc9
-        with:
-          context: .
-          file: Dockerfile.fe
+          file: Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
             ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:latest
           no-cache: true
-      # # Deploy Trigger (Key Changes Here)
-      # - name: Render Amazon ECS task definition for first container
-      #   id: render-web-container
-      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-      #   with:
-      #     task-definition: task-definition.json
-      #     container-name: frontend
-      #     image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
-      #     environment-variables: "LOG_LEVEL=info"
-      # - name: Deploy to Amazon ECS service
-      #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-      #   with:
-      #     task-definition: ${{ steps.render-app-container.outputs.task-definition }}
-      #     service: frontend
-      #     cluster: frontend
-
-
-      # - name: Get Task Definition ARN for Backend
-      #   id: get_task_definition_arn_backend
-      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-      #   with:
-      #     task-definition: my-task
-      #     container-name: backend
-      #     image: ${{ secrets.DOCKER_USERNAME }}/magicmusic-be:${{ env.VERSION }}
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_SECRET_ACCESS_REGION }}
-      # - name: Trigger CodeDeploy Deployment
-      #   uses: ItsKarma/aws-cli@v1.70.0
-      #   with:
-      #     args: |
-      #       deploy create-deployment \
-      #       --application-name example \
-      #       --deployment-group-name example \
-      #       --description "Deploying version ${{ env.VERSION }}" \
-      #       --revision file://appspec.zip
-      # - name: Inject Task Definition ARNs into appspec.json
-      #   run: |
-      #     sed -i 's|"${task_definition_frontend}"|${{ steps.get_task_definition_arn_frontend.outputs.task-definition }}|' appspec.json
-      #     sed -i 's|"${task_definition_backend}"|${{ steps.get_task_definition_arn_backend.outputs.task-definition }}|' appspec.json
-      #     cat appspec.json  # (Optional: Print the modified appspec.json for verification)
-      # - name: Download and Zip appspec.json
-      #   run: |
-      #     echo "Downloading appspec.json from https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/workflows/appspec.json"
-      #     curl -o appspec.json https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/.github/workflows/appspec.json || {
-      #       echo "Failed to download appspec.json"
-      #       cat appspec.json  
-      #       exit 1
-      #     }
-      #     echo "Downloaded appspec.json:"
-      #     cat appspec.json
-      #     echo "Zipping appspec.json"
-      #     zip appspec.zip appspec.json || {
-      #       echo "Failed to create appspec.zip"
-      #       exit 1
-      #     }

@@ -17,8 +17,7 @@
 **/bin
 **/charts
 **/compose*
-!Dockerfile.fe
-!Dockerfile.be
+!Dockerfile
 **/node_modules
 **/npm-debug.log
 **/obj
