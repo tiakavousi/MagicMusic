@@ -5,15 +5,13 @@ const http = require('http');
 
 
 http.createServer(function (request, response) {
-    let color;
-    const urlPath = new URL(request.url, `http://${fqdn}`).pathname.slice(1);
-    if (urlPath.match(/^red$/)) {
+    if (request.url.match(/red/)) {
         color = "red"
         console.log('Change color to:', color);
-    } else if (urlPath.match(/^white$/)) {
+    } else if (request.url.match(/white/)) {
         color = "white"
         console.log('Change color to:', color);
-    } else if (urlPath.match(/^green$/)) {
+    } else if (request.url.match(/green/)) {
         color = "green"
         console.log('Change color to:', color);
     }
