@@ -5,22 +5,14 @@ const http = require('http');
 
 
 http.createServer(function (request, response) {
-    const colorRegex = /\/(prod|qa)\/(\w+)/;
-    const match = pathname.match(colorRegex);
     let color;
-    if (match) {
-        color = match[2]; // Extract the color from the match
-    }
-
-    if (request.url === '/red') {
+    if (request.url.match(/red/)) {
         color = "red"
         console.log('Change color to:', color);
-    }
-    if (request.url === '/white') {
+    } else if (request.url.match(/white/)) {
         color = "white"
         console.log('Change color to:', color);
-    }
-    if (request.url === '/green') {
+    } else if (request.url.match(/green/)) {
         color = "green"
         console.log('Change color to:', color);
     }
