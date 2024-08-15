@@ -7,13 +7,13 @@ const http = require('http');
 http.createServer(function (request, response) {
     let color;
     const urlPath = new URL(request.url, `http://${fqdn}`).pathname.slice(1);
-    if (request.url.match(/^red$/)) {
+    if (urlPath.match(/^red$/)) {
         color = "red"
         console.log('Change color to:', color);
-    } else if (request.url.match(/^white$/)) {
+    } else if (urlPath.match(/^white$/)) {
         color = "white"
         console.log('Change color to:', color);
-    } else if (request.url.match(/^green$/)) {
+    } else if (urlPath.match(/^green$/)) {
         color = "green"
         console.log('Change color to:', color);
     }
