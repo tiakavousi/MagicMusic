@@ -23,7 +23,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: app
         run: npm install
 
       # - name: Test and coverage
