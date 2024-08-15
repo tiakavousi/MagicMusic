@@ -11,4 +11,4 @@ EXPOSE 8080
 ENV COLOR_BACKGROUND="white"
 ENV COLOR_PORT="8080"
 
-CMD ["/usr/local/bin/node", "/app/webserver.js"]
+CMD ["/usr/local/bin/node", "/app/index.js"]
