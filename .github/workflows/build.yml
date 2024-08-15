@@ -34,6 +34,6 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:${{ env.VERSION }}
-            ${{ secrets.DOCKER_USERNAME }}/magicmusic-fe:latest
+            ${{ secrets.DOCKER_USERNAME }}/color-app:${{ env.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/color-app:latest
           no-cache: true
