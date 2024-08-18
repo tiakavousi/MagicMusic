@@ -36,9 +36,6 @@ build/
 
 *.log
 
-# Test coverage reports
-coverage/
-*.lcov
 
 # Cypress configuration files
 cypress/
