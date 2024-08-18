@@ -3,17 +3,16 @@ const port = process.env.COLOR_PORT || 8080;
 const fqdn = process.env.HOSTNAME || 'localhost';
 const http = require('http');
 
-
 http.createServer(function (request, response) {
+    console.log(request.url)
     if (request.url.match(/red/)) {
         color = "red"
-        console.log('Change color to:', color);
-    } else if (request.url.match(/white/)) {
+    }
+    if (request.url.match(/white/)) {
         color = "white"
-        console.log('Change color to:', color);
-    } else if (request.url.match(/green/)) {
+    }
+    if (request.url.match(/green/)) {
         color = "green"
-        console.log('Change color to:', color);
     }
 
     response.writeHead(200, { 'Content-Type': 'text/html' });
