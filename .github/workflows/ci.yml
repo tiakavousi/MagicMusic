@@ -38,6 +38,8 @@ jobs:
             -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.branch.name=main
+        env:
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
         
       - name: Check Quality Gate
         uses: SonarSource/sonarcloud-github-action@master
@@ -47,8 +49,9 @@ jobs:
             -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.branch.name=main
             -Dsonar.qualitygate.wait=true
-            
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+
+       
 
 
