@@ -29,7 +29,7 @@ jobs:
       - name: Test and coverage
         working-directory: app
         run: npm run test -- --coverage --coverageReporters=text --coverageReporters=lcov
-        
+          
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
@@ -38,6 +38,16 @@ jobs:
             -Dsonar.projectKey=tiakavousi_MagicMusic
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.branch.name=main
+        
+      - name: Check Quality Gate
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.organization=tia-kavousi
+            -Dsonar.projectKey=tiakavousi_MagicMusic
+            -Dsonar.branch.name=main
+            -Dsonar.qualitygate.wait=true
+            
         env:
           SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
